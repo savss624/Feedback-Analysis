@@ -2,7 +2,7 @@ import pandas as pd
 import pickle
 import numpy as np
 import math
-from flask import Flask
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
@@ -11,8 +11,11 @@ def get_post_info_by_cluster(number,
                              cluster):
   return(data[cluster.labels_ == number])
 
-@app.route('/')
+@app.route('/', methods=['POST'])
 def root():
+  data = request.json
+  return jsonify(data)
+
   df = pd.read_csv('ForumPostsWithEmbeds.csv')
   sample_posts = df.Message
   num_of_posts = sample_posts.shape[0]
