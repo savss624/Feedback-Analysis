@@ -36,4 +36,8 @@ def root():
                                    cluster = clustering))
     
 #   return clusters
-  return pd.Series(clustering.labels_).value_counts().to_dict(), clusters
+  res = {
+    'distribution': pd.Series(clustering.labels_).value_counts().to_dict(),
+    'clusters': clusters
+  }
+  return res
