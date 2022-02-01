@@ -22,4 +22,4 @@ def root():
                           n_neighbors=number_clusters)
     clustering.fit(doc_embeddings)
     
-  return [(number, count) for number, count in pd.Series(clustering.labels_).value_counts().to_dict().items()][0][0]
+  return pd.Series(clustering.labels_).value_counts().to_dict()
