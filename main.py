@@ -6,6 +6,11 @@ from flask import Flask
 
 app = Flask(__name__)
 
+def get_post_info_by_cluster(number, 
+                             data,
+                             cluster):
+  return(data[cluster.labels_ == number])
+
 @app.route('/')
 def root():
   df = pd.read_csv('ForumPostsWithEmbeds.csv')
@@ -22,4 +27,11 @@ def root():
                           n_neighbors=number_clusters)
     clustering.fit(doc_embeddings)
     
+  clusters = {}
+  for i in range(number_clusters):
+    clusters[f"Cluster {i}"] = tuple(get_post_info_by_cluster(i, 
+                                   data = sample_posts,
+                                   cluster = clustering))
+    
+  return clusters
   return pd.Series(clustering.labels_).value_counts().to_dict()
