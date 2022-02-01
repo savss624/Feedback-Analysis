@@ -21,5 +21,5 @@ def root():
                           assign_labels="discretize",
                           n_neighbors=number_clusters)
     clustering.fit(doc_embeddings)
-
-  return [(number, count) for number, count in pd.Series(clustering.labels_).value_counts().to_dict().items()][0]
+  return 'Hello World'
+#   return [(number, count) for number, count in pd.Series(clustering.labels_).value_counts().to_dict().items()][0]
