@@ -23,4 +23,3 @@ def root():
     clustering.fit(doc_embeddings)
 
   return pd.Series(clustering.labels_).value_counts()
-root()
