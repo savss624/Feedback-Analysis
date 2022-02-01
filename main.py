@@ -1,0 +1,26 @@
+import pandas as pd
+import pickle
+import numpy as np
+import math
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def root():
+  df = pd.read_csv('ForumPostsWithEmbeds.csv')
+  sample_posts = df.Message
+  num_of_posts = sample_posts.shape[0]
+  number_clusters = math.floor(math.sqrt(num_of_posts))
+  doc_embeddings = df.to_numpy()[:,1:]
+
+  with open('SpectralClustering.pkl', 'rb') as f:
+    clustering = pickle.load(f)
+
+    clustering.set_params(n_clusters=number_clusters, 
+                          assign_labels="discretize",
+                          n_neighbors=number_clusters)
+    clustering.fit(doc_embeddings)
+
+  return pd.Series(clustering.labels_).value_counts()
+root()
