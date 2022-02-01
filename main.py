@@ -2,11 +2,11 @@ import pandas as pd
 import pickle
 import numpy as np
 import math
-from fastapi import FastAPI
+from flask import Flask
 
-app = FastAPI()
+app = Flask(__name__)
 
-@app.get("/")
+@app.route('/')
 def root():
   df = pd.read_csv('ForumPostsWithEmbeds.csv')
   sample_posts = df.Message
