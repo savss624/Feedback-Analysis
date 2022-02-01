@@ -14,7 +14,7 @@ def get_post_info_by_cluster(number,
 @app.route('/', methods=['POST'])
 def root():
   data = request.get_json()
-  return jsonify(data)
+  return data
 
   df = pd.read_csv('ForumPostsWithEmbeds.csv')
   sample_posts = df.Message
