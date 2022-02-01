@@ -2,7 +2,7 @@ import pandas as pd
 import pickle
 import numpy as np
 import math
-from flask import Flask, request, jsonify
+from flask import Flask, request
 
 app = Flask(__name__)
 
@@ -14,8 +14,6 @@ def get_post_info_by_cluster(number,
 @app.route('/', methods=['POST'])
 def root():
   forum_posts_data = request.get_json()
-
-#   df = pd.read_csv('ForumPostsWithEmbeds.csv')
   sample_posts = np.array(list(forum_posts_data.keys()))
   num_of_posts = sample_posts.shape[0]
   number_clusters = math.floor(math.sqrt(num_of_posts))
@@ -23,7 +21,6 @@ def root():
 
   with open('./SpectralClustering.pkl', 'rb') as f:
     clustering = pickle.load(f)
-
     clustering.set_params(n_clusters=number_clusters, 
                           assign_labels="discretize",
                           n_neighbors=number_clusters)
@@ -35,7 +32,6 @@ def root():
                                    data = sample_posts,
                                    cluster = clustering))
     
-#   return clusters
   res = {
     'distribution': pd.Series(clustering.labels_).value_counts().to_dict(),
     'clusters': clusters
