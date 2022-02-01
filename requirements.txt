@@ -1,5 +1,5 @@
 gunicorn
-fastapi
+flask
 numpy
 pandas
 scikit-learn
