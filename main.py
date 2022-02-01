@@ -35,5 +35,5 @@ def root():
                                    data = sample_posts,
                                    cluster = clustering))
     
-  return clusters
-  return pd.Series(clustering.labels_).value_counts().to_dict()
+#   return clusters
+  return pd.Series(clustering.labels_).value_counts().to_dict(), clusters
