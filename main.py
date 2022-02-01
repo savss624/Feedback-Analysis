@@ -14,7 +14,7 @@ def root():
   number_clusters = math.floor(math.sqrt(num_of_posts))
   doc_embeddings = df.to_numpy()[:,1:]
 
-  with open('SpectralClustering.pkl', 'rb') as f:
+  with open('./SpectralClustering.pkl', 'rb') as f:
     clustering = pickle.load(f)
 
     clustering.set_params(n_clusters=number_clusters, 
