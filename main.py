@@ -13,14 +13,13 @@ def get_post_info_by_cluster(number,
 
 @app.route('/', methods=['POST'])
 def root():
-  data = request.get_json()
-  return data
+  forum_posts_data = request.get_json()
 
-  df = pd.read_csv('ForumPostsWithEmbeds.csv')
-  sample_posts = df.Message
+#   df = pd.read_csv('ForumPostsWithEmbeds.csv')
+  sample_posts = np.array(list(forum_posts_data.keys()))
   num_of_posts = sample_posts.shape[0]
   number_clusters = math.floor(math.sqrt(num_of_posts))
-  doc_embeddings = df.to_numpy()[:,1:]
+  doc_embeddings = np.array(list(forum_posts_data.values()))
 
   with open('./SpectralClustering.pkl', 'rb') as f:
     clustering = pickle.load(f)
