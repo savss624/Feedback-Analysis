@@ -2,3 +2,5 @@ gunicorn
 fastapi
 numpy
 pandas
+scikit-learn
+scipy
